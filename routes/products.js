@@ -2,10 +2,6 @@ import express from "express";
 import Product from "../models/products.js";
 
 const router = express.Router();
-
-/* ------------------------------------------------------
-   GET TODOS LOS PRODUCTOS (también soporta ?categoryId=)
------------------------------------------------------- */
 router.get("/", async (req, res) => {
   try {
     const { categoryId } = req.query;
@@ -23,9 +19,6 @@ router.get("/", async (req, res) => {
   }
 });
 
-/* -------------------------------
-     GET PRODUCTO POR ID
--------------------------------- */
 router.get("/:id", async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
@@ -40,9 +33,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-/* -------------------------------
-      CREAR PRODUCTO
--------------------------------- */
 router.post("/", async (req, res) => {
   try {
     const newProduct = new Product(req.body);
@@ -55,9 +45,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-/* -------------------------------
-      EDITAR PRODUCTO
--------------------------------- */
 router.put("/:id", async (req, res) => {
   try {
     const updatedProduct = await Product.findByIdAndUpdate(
@@ -73,9 +60,6 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-/* ------------------------------------------------
-      AGREGAR REVIEW A UN PRODUCTO
-------------------------------------------------- */
 router.post("/:id/reviews", async (req, res) => {
   try {
     const { user, comment, rating } = req.body;
