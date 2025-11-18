@@ -1,8 +1,42 @@
 import mongoose from "mongoose";
-const Schema = mongoose.Schema;
 
-const productSchema = new Schema({
-  name: { type: String },
+const reviewSchema = new mongoose.Schema({
+  user: String,
+  comment: String,
+  date: { type: Date, default: Date.now }
 });
 
-export default mongoose.model("Product", productSchema, "Products");
+const productSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true
+  },
+  artist: {
+    type: String,
+    required: true
+  },
+  genre: {
+    type: String
+  },
+  year: {
+    type: Number
+  },
+  cover: {
+    type: String 
+  },
+  rating: {
+    type: Number,
+    default: 0
+  },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Category",
+    required: false
+  },
+  reviews: [reviewSchema]
+});
+
+
+const Product = mongoose.model("Product", productSchema);
+
+export default Product;
